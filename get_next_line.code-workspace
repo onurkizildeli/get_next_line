@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../ft_printf"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.ejs": "html",
+			"unistd.h": "c",
+			"fcntl.h": "c"
+		}
+	}
+}
