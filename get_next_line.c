@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 char	*get_next_line(int fd)
 {
@@ -30,13 +31,13 @@ char	*get_next_line(int fd)
 	i = 0;
 	fd = open("hede.txt", O_RDONLY, 0777);
 
-		s = (char *)malloc(sizeof(char) * temp_size);
-	while (read(fd, temp, 1))
+		s = (char *)malloc(sizeof(char) * BUFFER_SIZE +1);
+	while (read(fd, temp, BUFFER_SIZE))
 	{
 		a++;
 		temp_size++;
-		if(temp[0] == '\n')
-			break;
+		if (temp[0] == '\n')
+			break ;
 		s[i] = temp[0];
 		i++;
 	}
