@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "../libft"
+		},
+		{
+			"name": "ft_printf",
+			"path": "../ft_printf"
+		},
+		{
+			"path": "../42 Files"
+		},
+		{
+			"name": "get_next_line",
+			"path": "."
+		},
+		{
+			"path": "../42 printf others/ft_printf-main ohayek"
+		},
+		{
+			"path": "../42 get_next_line others/get_next_line-main_osmanhaye"
+		},
+		{
+			"path": "../42 get_next_line others/Get_Next_Line-main Simpler version"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.ejs": "html",
+			"libft_printf.h": "c",
+			"stdlib.h": "c"
+		}
+	}
+}

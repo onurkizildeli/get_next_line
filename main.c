@@ -53,12 +53,11 @@ int main()
 	int			dosya;
 	char		*str;
 	int			a;
-	
-	//dosya = open("hede.txt", O_RDONLY, 0777);
-	//read (dosya, str, 1);
-	//printf("%d\n", a);
-	
-	//get_next_line(dosya);
-	printf("%s", get_next_line(0));
+
+	dosya = open("hede.txt", O_RDWR | O_CREAT, 0777);
+
+	str = get_next_line(dosya);
+	printf("main dosya = %s[0]", str);
+	printf("\nmain satır sonrası deneme ");
 	return 0;
 }
