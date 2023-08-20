@@ -5,59 +5,52 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkizilde <mkizilde@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/02 14:54:49 by mkizilde          #+#    #+#             */
-/*   Updated: 2023/08/02 20:38:09 by mkizilde         ###   ########.fr       */
+/*   Created: 2023/08/16 23:39:27 by mkizilde          #+#    #+#             */
+/*   Updated: 2023/08/16 23:39:27 by mkizilde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
 #include "get_next_line.h"
 
-/*
-char	*get_next_line(int fd)
+int	main()
 {
-	char	*s;
-	char	temp[1];
-	int		i;
-	int		temp_size;
-	int		a;
+	//static char	*save;
+	char	*line;
+	// static char	*s1;
+	// char	*s2;
 
-	i = 0;
-	a = 0;
-	temp_size = 0;
-	//s = (char *)malloc(sizeof(char) * temp_size);
-	i = 0;
-	fd = open("hede.txt", O_RDONLY, 0777);
-		//s = (char *)malloc(sizeof(char) * temp_size);
-		s = (char *)malloc(sizeof(char) * temp_size);
-	while (a < 8)
-	{
-		a++;
-		read(fd, temp, BUFFER_SIZE);
-		//temp_size += read(fd, temp, 1);
-		temp_size++;
-		s[i] = temp[0];
-		i++;
-	}
-	s[i] = '\0';
-	printf("\ns = %s \n", s);
-	printf("temp = %s \n", temp);
-	return (s);
-}
-*/
 
-int main()
-{
-	int			dosya;
-	char		*str;
-	int			a;
+	//s1 = (char *)malloc(sizeof(char) * 11);
+	// s2 = (char *)malloc(sizeof(char) * 6);
+	//s1 = "";
+	// s2 = "abcd";
 
-	dosya = open("hede.txt", O_RDWR | O_CREAT, 0777);
+	// char s3[10] = "132456789";
+	// char s4[5] = "abcd";
+	//new = ft_strjoin(s3, s4);
+	// printf("\n %s \n", ft_strjoin(s1, s2));
 
-	str = get_next_line(dosya);
-	printf("main dosya = %s[0]", str);
-	printf("\nmain satır sonrası deneme ");
+	int dosya = open("hede.txt", O_RDONLY);
+
+	//line = get_next_line(dosya);
+    // printf("Line: %s\n", line);
+	// printf("get_line in main = %s", get_line(dosya, save));
+    // while (i<6)
+    // {
+    //     printf("Line: %s\n", get_next_line(dosya));
+    //     //free(line);
+	// 	i++;
+    // }
+
+
+
+
+    while ((line = get_next_line(dosya)) != NULL)
+    {
+        printf("Line: %s", line);
+        free(line);
+    }
+
+
 	return 0;
 }
