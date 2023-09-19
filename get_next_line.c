@@ -42,12 +42,18 @@ char	*get_line(int fd, char *save)
 	int		read_bytes;
 
 	if (!save)
-		save = ft_strjoin("", "");
-	if (ft_strchr(save, '\n'))
-		return (save);
+	{
+		save = (char *)malloc(sizeof(char)*1);
+		save[0] = '\0';
+	}
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buffer[BUFFER_SIZE] = '\0';
 	if (!buffer)
+	{
+		free (buffer);
 		return (NULL);
+	}
+
 	read_bytes = 1;
 	while (!ft_strchr(save, '\n') && read_bytes > 0)
 	{
@@ -55,12 +61,24 @@ char	*get_line(int fd, char *save)
 		if (read_bytes == -1)
 		{
 			free(buffer);
+			free(save);
 			return (NULL);
 		}
 		buffer[read_bytes] = '\0';
+		if (BUFFER_SIZE <= 0 || fd < 0)
+		{
+			free (buffer);
+			return (0);
+		}
+
 		save = ft_strjoin(save, buffer);
 	}
 	free(buffer);
+	if (!save)
+	{
+		free (save);
+		return NULL;
+	}
 	return (save);
 }
 
@@ -90,10 +108,12 @@ char	*handle_next_line(char	*save)
 		while (save[i] != '\n')
 			i++;
 
-		next_next_line = ft_substr(save, i + 1, ft_strlen(save) - i +1);
+		next_next_line = ft_substr(save, i + 1, ft_strlen(save) - i + 1);
+		free (save);
 
 		return (next_next_line);
 	}
+	free(save);
 	return (0);
 }
 
@@ -101,21 +121,26 @@ char	*get_next_line(int fd)
 {
 	static char	*save;
 	char		*line;
-	char		*buffer;
-	// char		*leftover;
-	// char		*backup;
+	//char		*buffer;
 
-	buffer = (char *)malloc(sizeof(char)* (BUFFER_SIZE + 1));
-	buffer[BUFFER_SIZE] = '\0';
+	// buffer = (char *)malloc(sizeof(char)* (BUFFER_SIZE + 1));
+	// buffer[BUFFER_SIZE] = '\0';
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (0);
+	// if (BUFFER_SIZE <= 0 || fd < 0)
+	// {
+	// 	free (buffer);
+	// 	return (0);
+	// }
+	// if (buffer)
+	// {
+	// 	free(buffer);
+	// 	return NULL;
+	// }
 	save = get_line(fd, save);
 	if (!save)
 		return (NULL);
 	line = extract_line(save);
 	save = handle_next_line(save);
-	//backup = save;
-
+	//free(buffer);
 	return (line);
 }

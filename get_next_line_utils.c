@@ -53,7 +53,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	j = 0;
 	if (!s1)
-		s1 = "";
+	{
+		new = (char *)malloc(sizeof(char));
+		new[0] = '\0';
+	}
 	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!new)
 		return (NULL);
@@ -69,6 +72,8 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	new[i] = '\0';
+	free (s1);
+	//free (s2);
 	return (new);
 }
 
@@ -95,12 +100,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub;
-	// size_t	i;
-	// size_t	j;
 	size_t	s_size;
 
-	// i = 0;
-	// j = 0;
 	s_size = ft_strlen(s);
 	if (start >= s_size)
 		return (ft_strdup(""));
