@@ -1,48 +1,81 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkizilde <mkizilde@student.42istanbul.c    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 15:36:17 by mkizilde          #+#    #+#             */
+/*   Updated: 2023/09/13 15:36:17 by mkizilde         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct employee
+
+struct list_test1
 {
-    int age;
-    float salary_per_hour;
-    
+	int data;
+	char *next;
+}list1;
+
+struct s_employee
+{
+	int		age;
+	float	salary_per_hour;
+	char	position[20];
 };
-struct intern
+struct s_intern
 {
-    int age;
-    float salary_per_hour;
-    
+	int age;
+	float salary_per_hour;
+	
 } jenn;
 
-typedef struct new_list
-{
-    char *data;
-    char *next;
-} t_list;
+// struct intern
+// {
+//     int age;
+//     float salary_per_hour;
+	
+// };
 
-t_list *ft_lstnew(void *content)
+struct s_homes_at_street
 {
-    t_list.data = content;
-    t_list.next = NULL;
-}
+	char building_name[20];
+	int apt_numbers;
+	int numbers;
+};
+
+typedef struct book_test {
+	char	book_id[50];
+	int		release_year;
+	int		stock;
+}books;
+
+
+typedef struct {
+	char	book_id[50];
+	int		release_year;
+	int		stock;
+}magz;
+
 
 int main()
 {
-    int age = 10;
+	struct s_intern jen, abby;
+	jen.age = 25;
+	jen.salary_per_hour = 35;
+	
+	books 	once;
+	magz	two;
 
-    struct employee jan, bill, george;
-    jan.age = 25;
+	once.stock = 35;
+	two.release_year = 1987;
 
-    printf("%d", jan.age);
+	printf("%d\n", jen.age);
+	printf("%.2f", jen.salary_per_hour);
 
-    printf("\nenter bill's age");
-
-    scanf("%d", &bill.age);
-    printf("bill's age is = %d", bill.age);
-
-    printf("\nenter jenn's age");
-    scanf("%d", &jenn.age);
-    printf("jenn's age is = %d", jenn.age);
-
-    return 0;
+	return 0;
 }
+
