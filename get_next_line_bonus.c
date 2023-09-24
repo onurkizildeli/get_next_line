@@ -112,7 +112,7 @@ char	*extract_line(char *save)
 char	*get_leftover(char *save)
 {
 	ft_strchr(save, '\n');
-	
+
 }
 
 char	*get_next_line_bonus(int fd)
