@@ -30,12 +30,11 @@ int	main()
 	//new = ft_strjoin(s3, s4);
 	// printf("\n %s \n", ft_strjoin(s1, s2));
 
-	//int dosya = open("big_line_with_nl", O_RDONLY);
+	int dosya = open("hede.txt", O_RDONLY);
 
 	//line = get_next_line(dosya);
     // printf("Line: %s\n", line);
-	//printf("get_line in main = %s", get_line(dosya, save));
-	//free(save);
+	// printf("get_line in main = %s", get_line(dosya, save));
     // while (i<6)
     // {
     //     printf("Line: %s\n", get_next_line(dosya));
@@ -46,13 +45,12 @@ int	main()
 
 
 
-    while ((line = get_next_line(0)) != NULL)
+    while ((line = get_next_line(dosya)) != NULL)
     {
         printf("Line: %s", line);
         free(line);
     }
 
-	printf("\nFOPEN_MAX: %d\n", FOPEN_MAX);
 
 	return 0;
 }
