@@ -10,17 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <get_next_line_bonus.h>
+//#include <get_next_line_bonus.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-ft_strlen2(const char *s, char c)
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 42
+#endif
+
+int	ft_strlen2(const char *s, char c)
 {
 	int	i;
 
 	i = 0;
+
 	while (s[i] != '\0' && s[i] != c)
 		i++;
 
@@ -53,23 +58,16 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	j = 0;
 	new = (char *)malloc(sizeof(char)
 			* (ft_strlen2(s1, '\0') + ft_strlen2(s2, '\0') + 1));
-
 	if (!new)
 		return (NULL);
-
-	while (s1[i] != '\0')
-	{
+	while (s1[i++] != '\0')
 		new[i] = s1[i];
-		i++;
-	}
-	while (s2[j] != '\0')
+	while (s2[j++] != '\0')
 	{
 		new[i] = s2[j];
-		j++;
 		i++;
 	}
 	new[i] = '\0';
-
 	return (new);
 }
 
@@ -84,7 +82,7 @@ char	*get_line(int fd, char *save)
 	while (read_byte > 0 && !ft_strchr(save, '\n'))
 	{
 		read_byte = read(fd, buffer, BUFFER_SIZE);
-		*save = ft_strjoin(save, buffer);
+		save = ft_strjoin(save, buffer);
 	}
 	return (save);
 }
@@ -119,16 +117,16 @@ char	*get_next_line_bonus(int fd)
 {
 	static char	*save[FOPEN_MAX];
 	char		*line;
-s
+
 	line = extract_line(save[fd]);
 	save[fd] = get_leftover(save[fd]);
+
 	return (line);
 }
 
 int	main(void)
 {
 	int dosya;
-	
 
 	dosya = open("hede.txt", O_RDWR | O_CREAT);
 

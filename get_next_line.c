@@ -47,13 +47,11 @@ char	*get_line(int fd, char *save)
 		save[0] = '\0';
 	}
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	buffer[BUFFER_SIZE] = '\0';
 	if (!buffer)
 	{
 		free (buffer);
 		return (NULL);
 	}
-
 	read_bytes = 1;
 	while (!ft_strchr(save, '\n') && read_bytes > 0)
 	{
@@ -70,14 +68,13 @@ char	*get_line(int fd, char *save)
 			free (buffer);
 			return (0);
 		}
-
 		save = ft_strjoin(save, buffer);
 	}
 	free(buffer);
 	if (!save)
 	{
 		free (save);
-		return NULL;
+		return (NULL);
 	}
 	return (save);
 }
@@ -85,32 +82,49 @@ char	*get_line(int fd, char *save)
 char	*extract_line(char *save)
 {
 	int		i;
+	int		j;
 	char	*line;
 
 	i = 0;
+	j = 0;
 	if (!save[i])
 		return (NULL);
 	while (save[i] != '\0' && save[i] != '\n')
 		i++;
-	line = ft_substr(save, 0, i+1);
-
+	line = (char *)malloc(sizeof(char) * (i + 2));
+	while (save[j] && save[j] != '\n')
+	{
+		line[j] = save[j];
+		j++;
+	}
+	if (save[j] == '\n')
+	{
+		line[j] = '\n';
+		line[j + 1] = '\0';
+	}
+	else
+		line[j] = '\0';
 	return (line);
 }
 
 char	*handle_next_line(char	*save)
 {
 	int		i;
+	int		j;
 	char	*next_next_line;
 
 	i = 0;
+	j = 0;
 	if (ft_strchr(save, '\n'))
 	{
 		while (save[i] != '\n')
 			i++;
-
-		next_next_line = ft_substr(save, i + 1, ft_strlen(save) - i + 1);
+		next_next_line = (char *)malloc(sizeof(char) * ft_strlen(save) - i + 1);
+		i++;
+		while (save[i])
+			next_next_line[j++] = save[i++];
+		next_next_line[j] = '\0';
 		free (save);
-
 		return (next_next_line);
 	}
 	free(save);

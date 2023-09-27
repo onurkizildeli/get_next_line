@@ -34,7 +34,7 @@ int	ft_strlen2(const char *s, char c)
 int ft_strlen(const char *s)
 {
 	int	i;
-	
+
 	i = 0;
 	while (s[i])
 		i++;
@@ -85,12 +85,34 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	return (new);
 }
 
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	s_size;
+
+	s_size = ft_strlen(s);
+	if (start >= s_size)
+		return (ft_strdup(""));
+	if (len > s_size)
+		len = s_size - start;
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (!sub)
+		return (NULL);
+	ft_strlcpy(sub, s + start, len + 1);
+	return (sub);
+}
+
 char	*get_line(int fd, char *save)
 {
 	char	*buffer;
 	int		i;
 	int		read_byte;
 
+	if (!save)
+	{
+		save = (char *)malloc(sizeof(char)*1);
+		save[0] = '\0';
+	}
 	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	buffer[BUFFER_SIZE] = '\0';
 	read_byte = 1;
@@ -129,14 +151,23 @@ char	*get_leftover(char *save)
 
 	i = 0;
 	while (save[i] != '\0' && save[i] != '\n')
-	{
-		
-	}
-	
+		i++;
 
 	save = ft_strchr(save, '\n');
 	printf("leftover save = %s", save);
 }
+
+// char *get_next_line(int fd, char save)
+// {
+// 	//static char	*save[OPEN_MAX];
+// 	char		*p;
+
+// 	p = ft_strchr(save, '\n')
+// 	printf("test p = %p", p);
+// 	get_line(int fd, char *save)
+// }
+
+
 
 
 int	main(void)
@@ -151,8 +182,10 @@ int	main(void)
 	char	*s5;
 	char	*s6;
 	static char	*save[FOPEN_MAX];
+	// char		*p;
 
-
+	// p = ((char *)malloc(sizeof(char *) * ft_strlen2(save[1], '\n')));
+	// p = ft_strchr(save[1], '\n');
 	save[1] = (char *)malloc(sizeof(char) * 14);
 	save[1] = "hede\n1234567";
 	dosya = open("hede.txt", O_RDWR);
@@ -165,9 +198,11 @@ int	main(void)
 	s4 = "bok";
 	s5 = "püsür";
 
+	//printf("test p = %p", p);
 	// printf("fd is = %d\n", dosya);
 	// printf("save[1] is = %s\n", save[1]);
 	printf("ft_strjoin = %s\n", get_line(dosya, save[1]));
+	printf("ft_strchr test = %s\n", ft_strchr(save[1], '\n'));
 
 	printf("\nsave1 test = %s", extract_line(save[1]));
 	get_leftover(save[1]);
