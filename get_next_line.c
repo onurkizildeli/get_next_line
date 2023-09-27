@@ -47,11 +47,6 @@ char	*get_line(int fd, char *save)
 		save[0] = '\0';
 	}
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-	{
-		free (buffer);
-		return (NULL);
-	}
 	read_bytes = 1;
 	while (!ft_strchr(save, '\n') && read_bytes > 0)
 	{
@@ -63,19 +58,9 @@ char	*get_line(int fd, char *save)
 			return (NULL);
 		}
 		buffer[read_bytes] = '\0';
-		if (BUFFER_SIZE <= 0 || fd < 0)
-		{
-			free (buffer);
-			return (0);
-		}
 		save = ft_strjoin(save, buffer);
 	}
 	free(buffer);
-	if (!save)
-	{
-		free (save);
-		return (NULL);
-	}
 	return (save);
 }
 
@@ -135,21 +120,9 @@ char	*get_next_line(int fd)
 {
 	static char	*save;
 	char		*line;
-	//char		*buffer;
 
-	// buffer = (char *)malloc(sizeof(char)* (BUFFER_SIZE + 1));
-	// buffer[BUFFER_SIZE] = '\0';
-
-	// if (BUFFER_SIZE <= 0 || fd < 0)
-	// {
-	// 	free (buffer);
-	// 	return (0);
-	// }
-	// if (buffer)
-	// {
-	// 	free(buffer);
-	// 	return NULL;
-	// }
+	if(fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
 	save = get_line(fd, save);
 	if (!save)
 		return (NULL);
@@ -158,3 +131,74 @@ char	*get_next_line(int fd)
 	//free(buffer);
 	return (line);
 }
+
+// char	*get_line(int fd, char *save)
+// {
+// 	char	*buffer;
+// 	int		read_bytes;
+
+// 	if (!save)
+// 	{
+// 		save = (char *)malloc(sizeof(char)*1);
+// 		save[0] = '\0';
+// 	}
+// 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+// 	if (!buffer)
+// 	{
+// 		// free (buffer);
+// 		return (NULL);
+// 	}
+// 	read_bytes = 1;
+// 	while (!ft_strchr(save, '\n') && read_bytes > 0)
+// 	{
+// 		read_bytes = read(fd, buffer, BUFFER_SIZE);
+// 		if (read_bytes == -1)
+// 		{
+// 			free(buffer);
+// 			free(save);
+// 			return (NULL);
+// 		}
+// 		buffer[read_bytes] = '\0';
+// 		if (BUFFER_SIZE <= 0 || fd < 0)
+// 		{
+// 			free (buffer);
+// 			return (0);
+// 		}
+// 		save = ft_strjoin(save, buffer);
+// 	}
+// 	free(buffer);
+// 	if (!save)
+// 	{
+// 		free (save);
+// 		return (NULL);
+// 	}
+// 	return (save);
+// }
+
+// char	*get_next_line(int fd)
+// {
+// 	static char	*save;
+// 	char		*line;
+// 	//char		*buffer;
+
+// 	// buffer = (char *)malloc(sizeof(char)* (BUFFER_SIZE + 1));
+// 	// buffer[BUFFER_SIZE] = '\0';
+
+// 	// if (BUFFER_SIZE <= 0 || fd < 0)
+// 	// {
+// 	// 	free (buffer);
+// 	// 	return (0);
+// 	// }
+// 	// if (buffer)
+// 	// {
+// 	// 	free(buffer);
+// 	// 	return NULL;
+// 	// }
+// 	save = get_line(fd, save);
+// 	if (!save)
+// 		return (NULL);
+// 	line = extract_line(save);
+// 	save = handle_next_line(save);
+// 	//free(buffer);
+// 	return (line);
+// }
