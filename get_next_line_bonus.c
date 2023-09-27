@@ -119,8 +119,7 @@ char	*get_next_line_bonus(int fd)
 {
 	static char	*save[FOPEN_MAX];
 	char		*line;
-
-	save[fd] = get_line(fd, *save[fd]);
+s
 	line = extract_line(save[fd]);
 	save[fd] = get_leftover(save[fd]);
 	return (line);
@@ -129,6 +128,7 @@ char	*get_next_line_bonus(int fd)
 int	main(void)
 {
 	int dosya;
+	
 
 	dosya = open("hede.txt", O_RDWR | O_CREAT);
 
