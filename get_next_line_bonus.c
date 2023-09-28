@@ -10,126 +10,100 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include <get_next_line_bonus.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 42
-#endif
-
-int	ft_strlen2(const char *s, char c)
-{
-	int	i;
-
-	i = 0;
-
-	while (s[i] != '\0' && s[i] != c)
-		i++;
-
-	return (i);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char) c)
-			return ((char*)(s + i));
-		i++;
-	}
-	if (s[i] == (char) c)
-		return ((char*)(s + i));
-	return NULL;
-}
-
-char	*ft_strjoin(const char *s1, const char *s2)
-{
-	char	*new;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	new = (char *)malloc(sizeof(char)
-			* (ft_strlen2(s1, '\0') + ft_strlen2(s2, '\0') + 1));
-	if (!new)
-		return (NULL);
-	while (s1[i++] != '\0')
-		new[i] = s1[i];
-	while (s2[j++] != '\0')
-	{
-		new[i] = s2[j];
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
-}
-
+#include "get_next_line_bonus.h"
 
 char	*get_line(int fd, char *save)
 {
 	char	*buffer;
-	int		read_byte;
+	int		read_bytes;
 
-	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	read_byte = 1;
-	while (read_byte > 0 && !ft_strchr(save, '\n'))
+	if (!save)
 	{
-		read_byte = read(fd, buffer, BUFFER_SIZE);
+		save = (char *)malloc(sizeof(char)*1);
+		save[0] = '\0';
+	}
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	read_bytes = 1;
+	while (!ft_strchr(save, '\n') && read_bytes > 0)
+	{
+		read_bytes = read(fd, buffer, BUFFER_SIZE);
+		if (read_bytes == -1)
+		{
+			free(buffer);
+			free(save);
+			return (NULL);
+		}
+		buffer[read_bytes] = '\0';
 		save = ft_strjoin(save, buffer);
 	}
+	free(buffer);
 	return (save);
 }
 
 char	*extract_line(char *save)
 {
-	char	*line;
 	int		i;
-	int		size;
+	int		j;
+	char	*line;
 
 	i = 0;
-	size = ft_strlen2(save, '\n');
-	line = (char *)malloc(sizeof(char) * size + 2);
-	while(save[i] != '\0' && save[i] != '\n')
-	{
-		line[i] = save[i];
+	j = 0;
+	if (!save[i])
+		return (NULL);
+	while (save[i] != '\0' && save[i] != '\n')
 		i++;
+	line = (char *)malloc(sizeof(char) * (i + 2));
+	while (save[j] && save[j] != '\n')
+	{
+		line[j] = save[j];
+		j++;
 	}
-	line[i] = save[i];
-	line[size + 2] = '\0';
-
+	if (save[j] == '\n')
+	{
+		line[j] = '\n';
+		line[j + 1] = '\0';
+	}
+	else
+		line[j] = '\0';
 	return (line);
 }
 
-char	*get_leftover(char *save)
+char	*handle_next_line(char	*save)
 {
-	ft_strchr(save, '\n');
+	int		i;
+	int		j;
+	char	*next_next_line;
 
+	i = 0;
+	j = 0;
+	if (ft_strchr(save, '\n'))
+	{
+		while (save[i] != '\n')
+			i++;
+		next_next_line = (char *)malloc(sizeof(char) * ft_strlen(save) - i + 1);
+		i++;
+		while (save[i])
+			next_next_line[j++] = save[i++];
+		next_next_line[j] = '\0';
+		free (save);
+		return (next_next_line);
+	}
+	free(save);
+	return (0);
 }
 
-char	*get_next_line_bonus(int fd)
+char	*get_next_line(int fd)
 {
 	static char	*save[FOPEN_MAX];
 	char		*line;
 
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > FOPEN_MAX)
+		return (0);
+	save[fd] = get_line(fd, save[fd]);
+	if (!save[fd])
+		return (NULL);
 	line = extract_line(save[fd]);
-	save[fd] = get_leftover(save[fd]);
-
+	save[fd] = handle_next_line(save[fd]);
+	//free(buffer);
 	return (line);
-}
-
-int	main(void)
-{
-	int dosya;
-
-	dosya = open("hede.txt", O_RDWR | O_CREAT);
-
-	get_next_line_bonus(dosya);
-	return (0);
 }
