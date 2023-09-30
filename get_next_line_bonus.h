@@ -18,10 +18,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <limits.h>
-# include <stddef.h>
-# include <ctype.h>
-# include <string.h>
-# include <strings.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
