@@ -6,7 +6,7 @@
 /*   By: mkizilde <mkizilde@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:38:49 by mkizilde          #+#    #+#             */
-/*   Updated: 2023/09/30 16:47:58 by mkizilde         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:25:18 by mkizilde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	*handle_next_line(char	*save)
 		while (save[i] != '\n')
 			i++;
 		next_next_line = (char *)malloc(sizeof(char) * ft_strlen(save) - i + 1);
+		if (!next_next_line)
+			return (NULL);
 		i++;
 		while (save[i])
 			next_next_line[j++] = save[i++];

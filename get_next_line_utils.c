@@ -6,7 +6,7 @@
 /*   By: mkizilde <mkizilde@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 16:39:10 by mkizilde          #+#    #+#             */
-/*   Updated: 2023/09/28 17:08:58 by mkizilde         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:37:33 by mkizilde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,8 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = -1;
 	j = 0;
-	if (!s1)
-	{
-		new = (char *)malloc(sizeof(char));
-		new[0] = '\0';
-	}
+	if (!s1 || !s2)
+		return (NULL);
 	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!new)
 		return (NULL);

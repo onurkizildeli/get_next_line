@@ -81,6 +81,8 @@ char	*handle_next_line(char	*save)
 		while (save[i] != '\n')
 			i++;
 		next_next_line = (char *)malloc(sizeof(char) * ft_strlen(save) - i + 1);
+		if (!next_next_line)
+			return (NULL);
 		i++;
 		while (save[i])
 			next_next_line[j++] = save[i++];
