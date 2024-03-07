@@ -1,2 +1,2 @@
 # get_next_line
-42 School Project. The aim of this project is to make  code a function that returns a line ending with a newline, read from a file descriptor.
+Here is the 42 School project. The aim of this project is to write a program that, when called each time at runtime, reads one line at a time from a file descriptor and returns it.
